@@ -10,13 +10,13 @@ app.use(bodyParser.json());
 
 const mongoose = require('mongoose');
 
-mongooe.connect("mongod://localhost/hikes")
+mongoose.connect("mongod://localhost/hikes");
 
 /************
  * DATABASE *
  ************/
 
-// var db = require('./models');
+var db = require('./models');
 
 var hikes =[
 {"id": 0, "name": "Mount Audubon Trail", "diffiuclty": "Hard", "length": "7.6 miles", "elevationGain": "2,667 ft", "location": "Indian Peaks Wilderness Area, Ward, CO"},
@@ -40,7 +40,6 @@ app.use(express.static('public'));
 
 app.get('/', function homepage(req, res) {
   res.sendFile(__dirname + '/views/index.html');
-  res.json(hikes);
 });
 
 
