@@ -25,6 +25,28 @@ var hikes =[
 {"id": 3, "name": "South Bolder Peak Trail", "diffiuclty": "Hard", "length": "7.8 miles", "elevationGain": "3,090 ft", "location": "Boulder, CO"}
 ];
 
+var profile =[
+{
+  "name" : "Emma",
+  "github_link" : "https://github.com/emmadema/express-personal-api.git",
+  "current_city" : "Denver, CO",
+  "pets" : pets
+}
+];
+
+var pets = [
+  {
+    "name": "Nemo (toad)",
+    "type": "Cat",
+    "breed": "Ragamuffin"
+  },
+  {
+    "name": "Malcolm",
+    "type": "Cat",
+    "breed": "Tuxedo"
+  }
+  ];
+
 /**********
  * ROUTES *
  **********/
@@ -38,6 +60,7 @@ app.use(express.static('public'));
  * HTML Endpoints
  */
 
+//INDEX
 app.get('/', function homepage(req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
@@ -61,6 +84,44 @@ app.get('/api', function api_index(req, res) {
     ]
   });
 });
+
+//INDEX
+//get all the profile info
+app.get('/api/profile', function  profile(req, res){
+  res.json(profile);
+
+});
+
+//INDEX
+//gets all the hikes
+app.get('/api/hikes', function allHikes(req, res){
+  res.json(hikes);
+});
+
+//SHOW
+//shows one hikle by ID
+app.get('/api/hikes/:id', function oneHike(req, res){
+
+});
+
+//CREATE
+//creates one hike
+app.post('/api/hikes', function createHike(req, res){
+
+});
+
+//PUT
+//updates any info in a hike
+app.put('/api/hikes/:id', function updateHike(req, res){
+
+});
+
+//DELETE
+//deletes a hike
+app.delete('/api/hikes/:id', function deleteHike(req, res){
+
+});
+
 
 /**********
  * SERVER *
