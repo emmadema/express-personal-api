@@ -1,15 +1,14 @@
-var mongoose = require('mongoose'),
+let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
 
-Schema = mongoose.Schema;
-
-var HikesSchema = new Schema({
+let HikesSchema = new Schema({
 	name : String,
 	diffiuclty: String,
 	length: String,
 	elevationGain: String,
-	location: String,
+	location: String
 });
 
-var Hikes = mongoose.model('Hikes', HikesSchema);
+let Hikes = mongoose.model('Hikes', HikesSchema);
 
 module.exports = Hikes;
