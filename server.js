@@ -88,7 +88,8 @@ app.get('/api', function api_index(req, res) {
 //INDEX
 //get all the profile info
 //http://localhost:3000/api/profile
-app.get('/api/profile', function  profile(req, res){
+app.get('/api/profile', function  profileArray(req, res){
+  console.log(profile[0]);
   res.json(profile[0]);
 });
 
