@@ -123,24 +123,23 @@ app.post('/api/hikes', function createHike(req, res){
   hikes.push(req.body);
   res.json(req.body);
 });
-//
+//this works with the array
 
 //PUT
 //updates any info in a hike
 //http://localhost:3000/api/hikes
 app.put('/api/hikes/:id', function updateHike(req, res){
   for(var i=0; i < hikes.length; i++){
+    console.log(candies[i].id);
     if(hikes[i].id == req.params.id){
       hikes[i].name = req.body.name;
-      hikes[i].diffiuclty = req.body.difficulty;
-      hike[i].length = req.body.length;
+      hikes[i].difficulty = req.body.difficulty;
+      hikes[i].length = req.body.length;
       hikes[i].elevationGain = req.body.elevationGain;
-      hikes[i].location = req.body.location;
-      
+      hikes[i].location = req.body.location; 
+      return res.json(hikes[i]);
     }
-    return res.json(hikes[i]);
   }
-
 });
 
 //DELETE
