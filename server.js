@@ -94,7 +94,7 @@ app.get('/api/profile', function  profileArray(req, res){
 //gets all the hikes
 //http://localhost:3000/api/hikes
 app.get('/api/hikes', function allHikes(req, res){
-  db.Hike.find(function(err, books){
+  db.Hike.find({}, function(err, hikes){
     if (err){ return  console.log("index error " + err);}
     res.json(hikes);
   });
@@ -106,14 +106,16 @@ app.get('/api/hikes', function allHikes(req, res){
 //shows one hikle by ID
 //http://localhost:3000/api/hikes/3
 app.get('/api/hikes/:id', function oneHike(req, res){
-  console.log(hikes.length);
-  console.log(req.params.id);
-  for(var i=0; i < hikes.length; i++){
-    console.log(hikes[i].id);
-    if(hikes[i].id == req.params.id){
-      res.json(hikes[i]);
-    }
-  }
+  index = req.params.id;
+  res.json(hikes[index]);
+  //console.log(hikes.length);
+  //console.log(req.params.id);
+  //for(var i=0; i < hikes.length; i++){
+    //console.log(hikes[i].id);
+    //if(hikes[i].id == req.params.id){
+      //res.json(hikes[i]);
+    //}
+  //}
 });
 //this works with the array
 
@@ -121,8 +123,21 @@ app.get('/api/hikes/:id', function oneHike(req, res){
 //creates one hike
 //http://localhost:3000/api/hikes
 app.post('/api/hikes', function createHike(req, res){
-  hikes.push(req.body);
-  res.json(req.body);
+ 
+  var newHike = {
+    "name": req.body.name,
+    "difficulty": req.body.difficulty,
+    "length": req.body.length,
+    "elevationGain": req.body.elevationGain,
+    "location": req.body.location
+  };
+
+  db.Hike.create(newHike, function(err, hike) {
+    res.json(newHike);
+  });
+
+  //hikes.push(req.body);
+  //res.json(req.body);
 });
 //this works with the array
 
@@ -130,17 +145,33 @@ app.post('/api/hikes', function createHike(req, res){
 //updates any info in a hike
 //http://localhost:3000/api/hikes/1
 app.put('/api/hikes/:id', function updateHike(req, res){
-  for(var i=0; i < hikes.length; i++){
-    console.log(hikes[i].id);
-    if(hikes[i].id == req.params.id){
-      hikes[i].name = req.body.name;
-      hikes[i].difficulty = req.body.difficulty;
-      hikes[i].length = req.body.length;
-      hikes[i].elevationGain = req.body.elevationGain;
-      hikes[i].location = req.body.location; 
-      return res.json(hikes[i]);
+
+  let id = req.params.id; 
+  db.Hike.findOne({_id: id }, function(err, hike) {
+    if (err) {
+      return console.log("error yo " + err);
+    } else {
+    updateHike.name = req.body.name;
+    updateHike.difficulty = req.body.difficulty;
+    updateHike.length = req.body.length;
+    updateHike.elevationGain = req.body.elevationGain;
+    updateHike.location = req.body.location;
+
+      hike.save();
+      res.json(hike);
     }
-  }
+  });
+  //for(var i=0; i < hikes.length; i++){
+  //  console.log(hikes[i].id);
+  //  if(hikes[i].id == req.params.id){
+  //    hikes[i].name = req.body.name;
+  //    hikes[i].difficulty = req.body.difficulty;
+  //    hikes[i].length = req.body.length;
+  //    hikes[i].elevationGain = req.body.elevationGain;
+  //    hikes[i].location = req.body.location; 
+  //    return res.json(hikes[i]);
+  //  }
+  //}
 });
 //works with array
 
@@ -148,12 +179,20 @@ app.put('/api/hikes/:id', function updateHike(req, res){
 //deletes a hike
 ////http://localhost:3000/api/hikes/2
 app.delete('/api/hikes/:id', function deleteHike(req, res){
-  for( var i=0; i < hikes.length; i++){
-    if(hikes[i].id == req.params.id) {
-      delete hikes[i];
-      return res.json("Hike deleted");
+  let idTwo = req.params.id; 
+  db.Hike.remove({_id: idTwo }, function(err, hike) {
+    if (err) {
+      return console.log("error yo " + err);
+    } else {
+      res.json(hikes);
     }
-  }
+
+  //for( var i=0; i < hikes.length; i++){
+    //if(hikes[i].id == req.params.id) {
+    //  delete hikes[i];
+    //  return res.json("Hike deleted");
+    //}
+  //}
 });
 //works with array
 
