@@ -22,3 +22,5 @@ db.Hikes.create(new_hike, function(err, hikes){
 	console.log("Created new hike yo", hikes._id);
 	process.exit(); // we're all done! Exit the program.
 });
+
+module.exports = hikes;

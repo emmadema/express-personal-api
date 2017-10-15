@@ -30,15 +30,12 @@ var profile =[
   "name": "Emma",
   "github_link": "https://github.com/emmadema/express-personal-api.git",
   "current_city": "Denver, CO",
-  "pets": 
-  {"id": 0, "name": "Nemo (toad)", "type": "Cat", "breed": "Ragamuffin"},
-//  {"id": 1, "name": "Malcolm", "type": "Cat", "breed": "Tuxedo"}
+  //"pets": 
+  //{"id": 0, "name": "Nemo (toad)", "type": "Cat", "breed": "Ragamuffin"},
+ // {"id": 1, "name": "Malcolm", "type": "Cat", "breed": "Tuxedo"}
 }
 ];
 
-var pets = [
-  
-  ];
 
 /**********
  * ROUTES *
@@ -132,6 +129,7 @@ app.post('/api/hikes', function createHike(req, res){
     "location": req.body.location
   };
 
+
   db.Hike.create(newHike, function(err, hike) {
     res.json(newHike);
   });
@@ -186,7 +184,7 @@ app.delete('/api/hikes/:id', function deleteHike(req, res){
     } else {
       res.json(hikes);
     }
-
+  });
   //for( var i=0; i < hikes.length; i++){
     //if(hikes[i].id == req.params.id) {
     //  delete hikes[i];
