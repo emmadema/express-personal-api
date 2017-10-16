@@ -6,7 +6,7 @@ var db = require('./models');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:3000/api');
 
-var hikes = [
+let hikes = [
 {"id": 0, "name": "Mount Audubon Trail", "difficulty": "Hard", "length": "7.6 miles", "elevationGain": "2,667 ft", "location": "Indian Peaks Wilderness Area, Ward, CO"},
 {"id": 1, "name": "Mowhawk Lakes", "difficulty": "Moderate", "length": "8.9 miles", "elevationGain": "2,185 ft", "location": "Breckenridge, CO"},
 {"id": 2, "name": "Sky Pond", "difficulty": "Hard", "length": "8.4 miles", "elevationGain": "1,833 ft", "location": "Rocky Mountain National Park, Estes Park, CO"},
@@ -23,4 +23,4 @@ db.Hikes.create(new_hike, function(err, hikes){
 	process.exit(); // we're all done! Exit the program.
 });
 
-module.exports = hikes;
+//module.exports = hikes;

@@ -8,9 +8,8 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const mongoose = require('mongoose');
-
-mongoose.connect("mongod://localhost/hikes");
+//const mongoose = require('mongoose');
+//mongoose.connect("mongod://localhost/hikes");
 
 /************
  * DATABASE *
@@ -63,7 +62,7 @@ app.get('/', function homepage(req, res) {
 app.get('/api', function api_index(req, res) {
   // TODO: Document all your api endpoints below
   res.json({
-    woops_i_has_forgot_to_document_all_my_endpoints: true, // CHANGE ME ;)
+    woops_i_has_forgot_to_document_all_my_endpoints: false, // CHANGE ME ;)
     message: "Welcome to my personal api! Here's what you need to know!",
     documentation_url: "https://github.com/emmadema/express-personal-api.git", // CHANGE ME
     base_url: "http://stark-coast-26914.herokuapp.com", // CHANGE ME
@@ -90,21 +89,23 @@ app.get('/api/profile', function  profileArray(req, res){
 //INDEX
 //gets all the hikes
 //http://localhost:3000/api/hikes
-app.get('/api/hikes', function allHikes(req, res){
-  db.Hike.find({}, function(err, hikes){
-    if (err){ return  console.log("index error " + err);}
+app.get('/api/hikes', function allHikes(req, res) {
+  db.Hike.find({}, function(err, hikes) {
+    if (err){ 
+      return  console.log("error " + err);
+    }
     res.json(hikes);
-  });
-  
+  });  
 });
-//this works with the array
+//this works
 
 //SHOW
 //shows one hikle by ID
 //http://localhost:3000/api/hikes/3
 app.get('/api/hikes/:id', function oneHike(req, res){
   index = req.params.id;
-  res.json(hikes[index]);
+  db.Hikes.findOne({_id: index}, function(err, hikes){
+  res.json(hikes);
   //console.log(hikes.length);
   //console.log(req.params.id);
   //for(var i=0; i < hikes.length; i++){
@@ -113,6 +114,7 @@ app.get('/api/hikes/:id', function oneHike(req, res){
       //res.json(hikes[i]);
     //}
   //}
+  });
 });
 //this works with the array
 
@@ -121,13 +123,13 @@ app.get('/api/hikes/:id', function oneHike(req, res){
 //http://localhost:3000/api/hikes
 app.post('/api/hikes', function createHike(req, res){
  
-  var newHike = {
+  let newHike = new db.Hike ({
     "name": req.body.name,
     "difficulty": req.body.difficulty,
     "length": req.body.length,
     "elevationGain": req.body.elevationGain,
     "location": req.body.location
-  };
+  });
 
 
   db.Hike.create(newHike, function(err, hike) {
@@ -145,19 +147,19 @@ app.post('/api/hikes', function createHike(req, res){
 app.put('/api/hikes/:id', function updateHike(req, res){
 
   let id = req.params.id; 
-  db.Hike.findOne({_id: id }, function(err, hike) {
+  db.Hike.findOne({_id: req.params.id }, function(err, hike) {
     if (err) {
       return console.log("error yo " + err);
     } else {
-    updateHike.name = req.body.name;
-    updateHike.difficulty = req.body.difficulty;
-    updateHike.length = req.body.length;
-    updateHike.elevationGain = req.body.elevationGain;
-    updateHike.location = req.body.location;
-
-      hike.save();
-      res.json(hike);
+    hike.name = req.body.name;
+    hike.difficulty = req.body.difficulty;
+    hike.length = req.body.length;
+    hike.elevationGain = req.body.elevationGain;
+    hike.location = req.body.location;
+    hike.save();
     }
+      res.json(hike);
+    });
   });
   //for(var i=0; i < hikes.length; i++){
   //  console.log(hikes[i].id);
@@ -170,19 +172,18 @@ app.put('/api/hikes/:id', function updateHike(req, res){
   //    return res.json(hikes[i]);
   //  }
   //}
-});
 //works with array
 
 //DELETE
 //deletes a hike
 ////http://localhost:3000/api/hikes/2
 app.delete('/api/hikes/:id', function deleteHike(req, res){
-  let idTwo = req.params.id; 
-  db.Hike.remove({_id: idTwo }, function(err, hike) {
+  let deadHike = req.params.id; 
+  db.Hike.remove({_id: deadHike }, function(err, hike) {
     if (err) {
       return console.log("error yo " + err);
     } else {
-      res.json(hikes);
+      res.send("Got beers instead of hiking this one");
     }
   });
   //for( var i=0; i < hikes.length; i++){
