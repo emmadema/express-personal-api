@@ -15,11 +15,11 @@ let hikes = [
 
 //var new_hike = {description: "Sharp rocks. Middle of nowhere."};
 
-db.Hikes.create(new_hike, function(err, hikes){
+db.Hike.create(hikes, function(err, hikes){
 	if (err){
 		return console.log("Error:", err);
 	}
-	console.log("Created new hike yo", hikes._id);
+	console.log("Created new hike yo", hike._id);
 	process.exit(); // we're all done! Exit the program.
 });
 

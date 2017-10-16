@@ -1,7 +1,7 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
-let HikesSchema = new Schema({
+let HikeSchema = new Schema({
 	name : String,
 	diffiuclty: String,
 	length: String,
@@ -9,6 +9,6 @@ let HikesSchema = new Schema({
 	location: String
 });
 
-let Hikes = mongoose.model('Hikes', HikesSchema);
+let Hike = mongoose.model('Hike', HikeSchema);
 
 module.exports = Hikes;

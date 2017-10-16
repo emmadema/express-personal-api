@@ -90,7 +90,7 @@ app.get('/api/profile', function  profileArray(req, res){
 //gets all the hikes
 //http://localhost:3000/api/hikes
 app.get('/api/hikes', function allHikes(req, res) {
-  db.Hikes.find({}, function(err, hikes) {
+  db.Hike.find({}, function(err, hikes) {
     if (err){ 
       return  console.log("error " + err);
     }
@@ -104,8 +104,8 @@ app.get('/api/hikes', function allHikes(req, res) {
 //http://localhost:3000/api/hikes/3
 app.get('/api/hikes/:id', function oneHike(req, res){
   index = req.params.id;
-  db.Hikes.findOne({id: index}, function(err, hikes){
-  res.json(hikes);
+  db.Hike.findOne({_id: index}, function(err, hikes){
+  res.json(hikes[index]);
   //console.log(hikes.length);
   //console.log(req.params.id);
   //for(var i=0; i < hikes.length; i++){
