@@ -11,4 +11,4 @@ let HikeSchema = new Schema({
 
 let Hike = mongoose.model('Hike', HikeSchema);
 
-module.exports = Hikes;
+module.exports = Hike;

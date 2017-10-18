@@ -82,7 +82,7 @@ app.get('/api', function api_index(req, res) {
 //get all the profile info
 //http://localhost:3000/api/profile
 app.get('/api/profile', function  profileArray(req, res){
-  console.log(profile[0]);
+  //console.log(profile[0]);
   res.json(profile[0]);
 });
 
@@ -105,7 +105,7 @@ app.get('/api/hikes', function allHikes(req, res) {
 app.get('/api/hikes/:id', function oneHike(req, res){
   index = req.params.id;
   db.Hike.findOne({_id: index}, function(err, hikes){
-  res.json(hikes[index]);
+  res.json(hikes);
   //console.log(hikes.length);
   //console.log(req.params.id);
   //for(var i=0; i < hikes.length; i++){
